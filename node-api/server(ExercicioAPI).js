@@ -38,7 +38,7 @@ app.delete('/:personName', (req, res) => {
     db.forEach((user) => {
         if (user.name === req.params.personName) {
             let index = db.indexOf(user);
-            db.splice(index, 1);
+            db.splice(index);
         }
     })
     res.status(201).send("Deleted.")

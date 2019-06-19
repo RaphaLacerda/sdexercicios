@@ -2,16 +2,26 @@
   "name": "node-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "nodemon server.js"
+    "start": "node app.js",
+    "test": "test",
+    "debug": "nodemon app.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "sequelize": "^5.8.10",
+    "winston": "^3.2.1",
+    "cors": "^2.8.5",
+    "ldapjs": "^1.0.2",
+    "moment": "^2.24.0",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.5"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
