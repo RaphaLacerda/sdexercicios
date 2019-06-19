@@ -25,7 +25,7 @@ class ListaTelefonica extends React.Component {
     }
 
     loadColaboradores() {
-        axios.get('http://private-ba46ed-softtrainee.apiary-mock.com/colaboradores')
+        axios.get('http://localhost:3001/')
             .then((resolve) => {
                 const colaboradores = resolve.data;
                 this.setState({ colaboradores });

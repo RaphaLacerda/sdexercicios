@@ -6,15 +6,17 @@ const logger = require('./config/logger');
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
 
-app.use((req, res, next) => {
-    if (!req.headers.auth || req.headers.auth !== '123') {
-        res.sendStatus(401);
-    } else {
-        next();
-    }
-});
+// app.use((req, res, next) => {
+//     if (!req.headers.auth || req.headers.auth !== '123') {
+//         res.sendStatus(401);
+//     } else {
+//         next();
+//     }
+// });
 app.use('/', routes);
 
 const port = process.env.PORT_API || 3001;
