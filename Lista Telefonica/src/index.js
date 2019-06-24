@@ -1,19 +1,17 @@
 import React from 'react';
-import axios from 'axios';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import * as serviceWorker from './serviceWorker';
-import Placeholder from './placeholder.png'
-import { Card, CardBody, CardTitle, CardText, CardImg, CardGroup } from 'reactstrap';
 import {
     Navbar,
     Form,
     FormControl,
     Button,
-    Container,
-    Col
+    Container
 } from 'react-bootstrap'
+import CardColaboradores from './components/cardColaborador';
+import colaboradorApi from './services/colaboradorApi'
 
 class ListaTelefonica extends React.Component {
     constructor(props) {
@@ -25,7 +23,7 @@ class ListaTelefonica extends React.Component {
     }
 
     loadColaboradores() {
-        axios.get('http://localhost:3001/')
+        colaboradorApi.loadColaboradores()
             .then((resolve) => {
                 const colaboradores = resolve.data;
                 this.setState({ colaboradores });
@@ -35,22 +33,9 @@ class ListaTelefonica extends React.Component {
     }
 
     renderCards() {
-        return (< CardGroup > {
-            this.state.colaboradores.map(colab => (< Col xs={6}
-                key={colab.nome} >
-                <Card cols="3" className="m-5">
-                    <CardImg top src={colab.foto || Placeholder} height="400px" />
-                    <CardBody>
-                        <CardTitle> {colab.nome} </CardTitle>
-                        <CardText> {colab.email} </CardText>
-                        <CardText> {colab.celular} </CardText>
-                    </CardBody>
-                </Card>
-            </Col>
-            ))
-        } </CardGroup>
-        )
-    };
+        return this.state.colaboradores.map((colab) => 
+            <CardColaboradores colab = {colab} key={colab.nome}/>);
+        };
 
     render() {
         const haveResults = this.state.colaboradores.length > 0;
@@ -65,13 +50,13 @@ class ListaTelefonica extends React.Component {
                     </Form>
                 </Navbar.Collapse>
             </Navbar>
-            <Container> {haveResults ? this.renderCards() : <div> Sem registros. </div>}
+            <Container className="row"> {haveResults ? this.renderCards() : <div> Sem registros. </div>}
             </Container>
         </div>
-        )
-    }
-}
+        );
+    };
+};
 
-ReactDOM.render(< ListaTelefonica />, document.getElementById('root'));
+ReactDOM.render(<ListaTelefonica />, document.getElementById('root'));
 
 serviceWorker.unregister();
